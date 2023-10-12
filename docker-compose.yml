@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginxx
+    ports:
+      - 8083:80
+    volumes:
+      - ./backend:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - app
+  # Application Service
+  app:
+    container_name: backend
+    build: 
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - 9000:9000
+    working_dir: /var/www
+
