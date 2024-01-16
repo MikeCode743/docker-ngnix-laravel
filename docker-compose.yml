@@ -2,24 +2,34 @@ version: '3.8'
 
 services:
   nginx:
-    image: nginx:alpine
-    container_name: nginxx
+    image: bitnami/nginx:latest
+    container_name: docker_nginx
     ports:
-      - 8083:80
+      - 8004:80
     volumes:
       - ./backend:/var/www
-      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./nginx/laravel_block.conf:/opt/bitnami/nginx/conf/server_blocks/laravel_block.conf
     depends_on:
-      - app
+      - backend
+      - database
+
+  database:
+    image: postgres
+    container_name: docker_postgresql
+    volumes:
+      - ./postgresql/backend:/var/lib/postgresql/data
+    ports:
+      - 5444:5432
+    environment: 
+      POSTGRES_DB: public
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: postgres 
   # Application Service
-  app:
-    container_name: backend
+  backend:
+    container_name: docker_backend
     build: 
       context: ./php
       dockerfile: Dockerfile
     volumes:
       - ./backend:/var/www
-    ports:
-      - 9000:9000
     working_dir: /var/www
-
