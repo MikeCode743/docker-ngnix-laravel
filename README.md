@@ -48,13 +48,17 @@ Utility
 ```bash
 docker compose exec backend php artisan migrate:fresh
 docker compose exec backend php artisan db:seed
-docker compose exec backend php artisan make:model
-docker compose exec backend php artisan make:controller Api/
-docker compose exec backend php artisan make:seed
-docker compose exec backend php artisan make:migrate
-
 docker compose exec backend php artisan route:list
 
+```
+
+CREATE 
+
+```bash
+docker compose exec backend php artisan make:migration
+docker compose exec backend php artisan make:seed
+docker compose exec backend php artisan make:model
+docker compose exec backend php artisan make:controller Api/
 ```
 
 
