@@ -32,3 +32,12 @@ sudo chmod -R 775 storage
 sudo chmod -R 775 bootstrap/cache
 
 ```
+
+Installation
+```bash
+docker compose exec backend php artisan optimize:clear
+
+docker compose exec backend php artisan storage:link
+
+docker compose exec backend php artisan migrate --seed
+```
