@@ -58,7 +58,7 @@ RUN apt-get install -y libpq-dev \
 #composer install
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update --fix-missing && apt-get install -y \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
@@ -67,11 +67,9 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd
 
-RUN composer require simplesoftwareio/simple-qrcode
 
-RUN php artisan vendor:publish --provider="SimpleSoftwareIO\QrCode\QrCodeServiceProvider"
 
-RUN apt-get update && \
+RUN apt-get update --fix-missing && apt-get upgrade -y && \
     apt-get install -y libmagickwand-dev --no-install-recommends && \
     rm -rf /var/lib/apt/lists/* && \
     pecl install imagick && \
