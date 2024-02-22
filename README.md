@@ -15,7 +15,7 @@ docker-compose -p my-project up -d
 
 docker compose exec backend composer install
 
-docker compose exec backend mv .env.example .env
+docker compose exec backend cp .env.example .env
 
 docker compose exec backend php artisan key:generate
 
