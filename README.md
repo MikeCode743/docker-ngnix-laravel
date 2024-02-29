@@ -11,11 +11,11 @@ Comand
 Install dependencies with composer and initial Installation
 
 ```bash
-docker compose up -d
+docker-compose -p my-project up -d
 
-docker compose exec backend composer Install
+docker compose exec backend composer install
 
-docker compose exec backend mv .env.example .env
+docker compose exec backend cp .env.example .env
 
 docker compose exec backend php artisan key:generate
 
@@ -26,10 +26,11 @@ Granting permissions
 ```bash
 docker compose exec backend bash
 
-docker compose exec backend chown -R $USER:www-data storage
-docker compose exec backend chown -R $USER:www-data bootstrap/cache
-docker compose exec backend chmod -R 775 storage
-docker compose exec backend chmod -R 775 bootstrap/cache
+chown -R $USER:www-data storage
+chown -R $USER:www-data bootstrap/cache
+chmod -R 775 storage
+chmod -R 775 bootstrap/cache
+
 docker compose exec backend chmod o+w ./storage/ -R
 
 ```
