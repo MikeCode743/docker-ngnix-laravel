@@ -11,7 +11,7 @@ Comand
 Install dependencies with composer and initial Installation
 
 ```bash
-docker-compose -p my-project up -d
+docker-compose up -d
 
 docker compose exec backend composer install
 
